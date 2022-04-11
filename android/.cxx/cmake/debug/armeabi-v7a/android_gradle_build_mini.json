@@ -1,0 +1,22 @@
+{
+  "buildFiles": [
+    "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/CMakeLists.txt",
+    "/home/bugthedebugger/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/home/bugthedebugger/Android/Sdk/ndk/21.1.6352462/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "bugsscanner-Debug-armeabi-v7a": {
+      "artifactName": "bugsscanner",
+      "buildCommand": "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a\" bugsscanner",
+      "abi": "armeabi-v7a",
+      "output": "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/debug/obj/armeabi-v7a/libbugsscanner.so",
+      "runtimeFiles": [
+        "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/src/main/jniLibs/armeabi-v7a/libopencv_java4.so"
+      ]
+    }
+  }
+}

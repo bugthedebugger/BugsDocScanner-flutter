@@ -1,0 +1,3 @@
+/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/bugsscanner.dir
