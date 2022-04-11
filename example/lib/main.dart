@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:bugs_scanner/bugs_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  Uint8List? buffer;
 
   @override
   void initState() {
@@ -31,8 +34,13 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       final BugsScanner$Impl scanner$impl = BugsScanner$Impl();
-      platformVersion = 'test';
-      scanner$impl.getFileName('');
+      platformVersion = scanner$impl.getFileName('');
+      const imageUrl = "https://avatars.githubusercontent.com/u/9513691?v=4";
+      http.Response response = await http.get(
+        Uri.parse(imageUrl),
+      );
+      print(response.bodyBytes);
+      buffer = scanner$impl.getCroppedBWImage(response.bodyBytes);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -54,8 +62,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Column(
+          children: [
+            if (buffer != null) Image.memory(buffer!),
+            Center(
+              child: Text('Running on: $_platformVersion\n'),
+            ),
+          ],
         ),
       ),
     );

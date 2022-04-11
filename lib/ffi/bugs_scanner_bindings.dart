@@ -20,6 +20,60 @@ class BugsScannerBindings {
           lookup)
       : _lookup = lookup;
 
+  ImgBuffer createImgBuffer(
+    ffi.Pointer<ffi.Uint8> buffer,
+    int size,
+  ) {
+    return _createImgBuffer(
+      buffer,
+      size,
+    );
+  }
+
+  late final _createImgBufferPtr = _lookup<
+      ffi.NativeFunction<
+          ImgBuffer Function(
+              ffi.Pointer<ffi.Uint8>, ffi.Uint64)>>('createImgBuffer');
+  late final _createImgBuffer = _createImgBufferPtr
+      .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int)>();
+
+  Coordinates createCoordinates(
+    double x,
+    double y,
+  ) {
+    return _createCoordinates(
+      x,
+      y,
+    );
+  }
+
+  late final _createCoordinatesPtr =
+      _lookup<ffi.NativeFunction<Coordinates Function(ffi.Float, ffi.Float)>>(
+          'createCoordinates');
+  late final _createCoordinates =
+      _createCoordinatesPtr.asFunction<Coordinates Function(double, double)>();
+
+  Contour createContour(
+    Coordinates topLeft,
+    Coordinates bottomLeft,
+    Coordinates bottomRight,
+    Coordinates topRight,
+  ) {
+    return _createContour(
+      topLeft,
+      bottomLeft,
+      bottomRight,
+      topRight,
+    );
+  }
+
+  late final _createContourPtr = _lookup<
+      ffi.NativeFunction<
+          Contour Function(Coordinates, Coordinates, Coordinates,
+              Coordinates)>>('createContour');
+  late final _createContour = _createContourPtr.asFunction<
+      Contour Function(Coordinates, Coordinates, Coordinates, Coordinates)>();
+
   ffi.Pointer<ffi.Int8> getFileName(
     ffi.Pointer<ffi.Int8> ext,
   ) {
