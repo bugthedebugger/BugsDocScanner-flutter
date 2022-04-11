@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:bugs_scanner/bugs_scanner.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,8 +30,9 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await BugsScanner.platformVersion ?? 'Unknown platform version';
+      final BugsScanner$Impl scanner$impl = BugsScanner$Impl();
+      platformVersion = 'test';
+      scanner$impl.getFileName('');
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
