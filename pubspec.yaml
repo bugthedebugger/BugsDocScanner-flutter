@@ -20,10 +20,11 @@ dev_dependencies:
 
 ffigen:
   name: 'BugsScannerBindings'
-  output: 'lib/ffi/bugs_scanner_bindings.dart'
+  # output: 'lib/ffi/bugs_scanner_bindings.dart'
+  output: 'testbinding.dart'
   headers:
     entry-points:
-      - 'include/bugsscanner.hpp'
+      - 'include/test.hpp'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
