@@ -18,3 +18,5 @@
 2485	2537	1649689132	/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/debug/obj/arm64-v8a/libbugsscanner.so	6fb2bf7a9d9996e7
 1	2480	1649691422	CMakeFiles/bugsscanner.dir/home/bugthedebugger/Documents/Flutter_Projects/bugs_scanner/ios/Classes/bugsscanner.cpp.o	1fb2a836dc425bcb
 2480	2531	1649691422	/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/debug/obj/arm64-v8a/libbugsscanner.so	6fb2bf7a9d9996e7
+1	2462	1649735267	CMakeFiles/bugsscanner.dir/home/bugthedebugger/Documents/Flutter_Projects/bugs_scanner/ios/Classes/bugsscanner.cpp.o	1fb2a836dc425bcb
+2462	2519	1649735267	/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/debug/obj/arm64-v8a/libbugsscanner.so	6fb2bf7a9d9996e7

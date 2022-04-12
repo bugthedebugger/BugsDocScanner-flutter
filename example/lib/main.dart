@@ -33,14 +33,12 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      final BugsScanner$Impl scanner$impl = BugsScanner$Impl();
-      platformVersion = scanner$impl.getFileName('');
+      platformVersion = await BugsScannerAdapter.getFileName('');
       const imageUrl = "https://avatars.githubusercontent.com/u/9513691?v=4";
       http.Response response = await http.get(
         Uri.parse(imageUrl),
       );
-      print(response.bodyBytes);
-      buffer = scanner$impl.getCroppedBWImage(response.bodyBytes);
+      buffer = await BugsScannerAdapter.getCroppedBWImage(response.bodyBytes);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }

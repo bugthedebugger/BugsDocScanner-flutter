@@ -4,6 +4,7 @@
 // ignore_for_file: camel_case_types, unused_element, unused_field, constant_identifier_names
 
 import 'dart:ffi' as ffi;
+import 'dart:io';
 
 class BugsScannerBindings {
   /// Holds the symbol lookup function.
@@ -11,8 +12,10 @@ class BugsScannerBindings {
       _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  BugsScannerBindings(ffi.DynamicLibrary dynamicLibrary)
-      : _lookup = dynamicLibrary.lookup;
+  BugsScannerBindings()
+      : _lookup = Platform.isAndroid
+            ? ffi.DynamicLibrary.open("libbugsscanner.so").lookup
+            : ffi.DynamicLibrary.process().lookup;
 
   /// The symbols are looked up with [lookup].
   BugsScannerBindings.fromLookup(
