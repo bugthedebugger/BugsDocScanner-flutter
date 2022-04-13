@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bugthedebugger.bugs_scanner_example">
+   <uses-permission android:name="android.permission.CAMERA"/>
    <application
         android:label="bugs_scanner_example"
         android:name="${applicationName}"
