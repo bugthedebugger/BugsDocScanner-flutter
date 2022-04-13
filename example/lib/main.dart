@@ -53,7 +53,7 @@ class _ScannerExampleState extends State<ScannerExample> {
               ElevatedButton(
                 onPressed: () async {
                   _buffer = await BugsScannerService.scan(
-                    automaticBW: false,
+                    automaticBW: true,
                   );
                   setState(() {});
                 },
