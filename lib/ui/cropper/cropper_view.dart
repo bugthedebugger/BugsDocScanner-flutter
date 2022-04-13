@@ -21,7 +21,10 @@ class CropperView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CroppverViewModel>.reactive(
       viewModelBuilder: () => CroppverViewModel(),
-      onModelReady: (model) => model.init(originalImage),
+      onModelReady: (model) => model.init(
+        originalImage,
+        automaticBW: automaticBW,
+      ),
       builder: (context, model, chid) {
         return Scaffold(
           backgroundColor: Colors.black,

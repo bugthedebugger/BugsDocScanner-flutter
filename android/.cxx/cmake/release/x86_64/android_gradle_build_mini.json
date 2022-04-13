@@ -1,0 +1,22 @@
+{
+  "buildFiles": [
+    "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/CMakeLists.txt",
+    "/home/bugthedebugger/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/home/bugthedebugger/Android/Sdk/ndk/21.1.6352462/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/release/x86_64\" clean"
+  ],
+  "buildTargetsCommand": "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/release/x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "bugsscanner-Release-x86_64": {
+      "artifactName": "bugsscanner",
+      "buildCommand": "/home/bugthedebugger/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/release/x86_64\" bugsscanner",
+      "abi": "x86_64",
+      "output": "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/release/obj/x86_64/libbugsscanner.so",
+      "runtimeFiles": [
+        "/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/src/main/jniLibs/x86_64/libopencv_java4.so"
+      ]
+    }
+  }
+}

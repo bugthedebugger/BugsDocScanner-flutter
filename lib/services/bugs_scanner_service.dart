@@ -26,6 +26,7 @@ class BugsScannerService {
         final Uint8List buffer = await navigationService.navigateToView(
           CropperView(
             originalImage: originalImage,
+            automaticBW: automaticBW,
           ),
         );
 
