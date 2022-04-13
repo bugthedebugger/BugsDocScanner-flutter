@@ -73,10 +73,10 @@ class BugsScannerAdapter {
 
   /// Crops the image using custom contour
   /// returns a black and white image as Uint8List
-  static Future<Uint8List> cropAndGetBWImageFromBufAsBufWithCustomContour({
-    required Uint8List buf,
-    required ScannerContour contour,
-  }) async {
+  static Future<Uint8List> cropAndGetBWImageFromBufAsBufWithCustomContour(
+    Uint8List buf,
+    ScannerContour contour,
+  ) async {
     final ReceivePort receivePort = ReceivePort();
     final IsolateParams<Set> params = IsolateParams<Set>(
       sendPort: receivePort.sendPort,
@@ -115,10 +115,10 @@ class BugsScannerAdapter {
 
   /// Crops the image using custom contour
   /// returns a colored image as Uint8List
-  static Future<Uint8List> cropAndGetColorImageFromBufAsBufWithCustomContour({
-    required Uint8List buf,
-    required ScannerContour contour,
-  }) async {
+  static Future<Uint8List> cropAndGetColorImageFromBufAsBufWithCustomContour(
+    Uint8List buf,
+    ScannerContour contour,
+  ) async {
     final ReceivePort receivePort = ReceivePort();
     final IsolateParams<Set> params = IsolateParams<Set>(
       sendPort: receivePort.sendPort,
@@ -291,6 +291,7 @@ class BugsScannerAdapter {
     return savedFilePath;
   }
 
+  /// Returns a default contour from the image buffer provided
   static Future<ScannerContour?> getContourFromImageBuffer(
     Uint8List buf,
   ) async {
@@ -330,5 +331,94 @@ class BugsScannerAdapter {
     final ScannerContour? scannerContour = await receivePort.first;
 
     return scannerContour;
+  }
+
+  /// Returns a default contour from the image filepath provided
+  static Future<ScannerContour?> getContourFromFilePath(String filePath) async {
+    final ReceivePort receivePort = ReceivePort();
+    final File file = File.fromUri(Uri.parse(filePath));
+    final Uint8List buf = await file.readAsBytes();
+    final IsolateParams<Uint8List> params = IsolateParams<Uint8List>(
+      sendPort: receivePort.sendPort,
+      data: buf,
+    );
+
+    await Isolate.spawn(
+      (IsolateParams<Uint8List> params) async {
+        final ScannerContour? contour =
+            await BugsScannerAdapter.getContourFromImageBuffer(
+          params.data!,
+        );
+
+        params.sendPort.send(contour);
+      },
+      params,
+    );
+
+    final ScannerContour? c = await receivePort.first;
+    return c;
+  }
+
+  /// returns buffer of bw image cropped using default contour
+  static Future<Uint8List> cropAndGetBWImageFromImagePathAsBuf(
+      String filePath) async {
+    final File file = File.fromUri(Uri.parse(filePath));
+    final Uint8List imageBuffer = await file.readAsBytes();
+
+    final Uint8List buffer =
+        await BugsScannerAdapter.cropAndGetBWImageFromBufAsBuf(
+      imageBuffer,
+    );
+
+    return buffer;
+  }
+
+  /// returns buffer of colored image cropped using default contour
+  static Future<Uint8List> cropAndGetColorImageFromImagePathAsBuf(
+      String filePath) async {
+    final File file = File.fromUri(Uri.parse(filePath));
+    final Uint8List imageBuffer = await file.readAsBytes();
+
+    final Uint8List buffer =
+        await BugsScannerAdapter.cropAndGetColorImageFromBufAsBuf(
+      imageBuffer,
+    );
+
+    return buffer;
+  }
+
+  /// returns buffer of colored image cropped using custom contour
+  static Future<Uint8List>
+      cropAndGetColorImageFromImagePathAsBufWithCustomContour(
+    String filePath,
+    ScannerContour contour,
+  ) async {
+    final File file = File.fromUri(Uri.parse(filePath));
+    final Uint8List imageBuffer = await file.readAsBytes();
+
+    final Uint8List buffer = await BugsScannerAdapter
+        .cropAndGetColorImageFromBufAsBufWithCustomContour(
+      imageBuffer,
+      contour,
+    );
+
+    return buffer;
+  }
+
+  /// returns buffer of bw image cropped using custom contour
+  static Future<Uint8List> cropAndGetBWImageFromImagePathAsBufWithCustomContour(
+    String filePath,
+    ScannerContour contour,
+  ) async {
+    final File file = File.fromUri(Uri.parse(filePath));
+    final Uint8List imageBuffer = await file.readAsBytes();
+
+    final Uint8List buffer =
+        await BugsScannerAdapter.cropAndGetBWImageFromBufAsBufWithCustomContour(
+      imageBuffer,
+      contour,
+    );
+
+    return buffer;
   }
 }

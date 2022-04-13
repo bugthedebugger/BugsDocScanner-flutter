@@ -6,7 +6,6 @@ import 'package:bugs_scanner/data/scanner_contour.dart';
 import 'package:bugs_scanner/data/scanner_coordinates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,30 +36,43 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion = await BugsScannerAdapter.getFileName('');
-      const imageUrl = "https://avatars.githubusercontent.com/u/9513691?v=4";
-      http.Response response = await http.get(
-        Uri.parse(imageUrl),
-      );
+      // const imageUrl = "https://avatars.githubusercontent.com/u/9513691?v=4";
+      // http.Response response = await http.get(
+      //   Uri.parse(imageUrl),
+      // );
       // buffer = await BugsScannerAdapter.cropAndGetColorImageFromBufAsBuf(
       //   response.bodyBytes,
       // );
       buffer = await BugsScannerAdapter
-          .cropAndGetColorImageFromBufAsBufWithCustomContour(
-        buf: response.bodyBytes,
-        contour: ScannerContour.fromEdges(
+          .cropAndGetBWImageFromImagePathAsBufWithCustomContour(
+        '/data/user/0/com.bugthedebugger.bugs_scanner_example/app_flutter/1649819250294.jpg',
+        ScannerContour.fromEdges(
           ScannerCoordinates.fromXY(0, 0),
           ScannerCoordinates.fromXY(0, 150),
-          ScannerCoordinates.fromXY(150, 150),
-          ScannerCoordinates.fromXY(150, 0),
+          ScannerCoordinates.fromXY(300, 250),
+          ScannerCoordinates.fromXY(300, 0),
         ),
       );
 
-      final c = await BugsScannerAdapter.getContourFromImageBuffer(
-        response.bodyBytes,
-      );
-      print('Contour: ${c.toString()}');
+      // buffer = await BugsScannerAdapter.cropAndGetColorImageFromImagePathAsBuf(
+      //   '/data/user/0/com.bugthedebugger.bugs_scanner_example/app_flutter/1649819250294.jpg',
+      // );
+
+      // final c = await BugsScannerAdapter.getContourFromImageBuffer(
+      //   response.bodyBytes,
+      // );
+
+      // final dir = await getApplicationDocumentsDirectory();
+
+      // final saveddir =
+      //     await BugsScannerAdapter.cropAndGetColorFromAssetAsFilePath(
+      //   filePath: 'assets/images/1.jpg',
+      //   fileExtension: '.jpg',
+      //   savePath: dir.path,
+      // );
+      // print('filepath: $saveddir');
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      platformVersion = 'Platform Exception';
     } catch (e) {
       platformVersion = e.toString();
     }
