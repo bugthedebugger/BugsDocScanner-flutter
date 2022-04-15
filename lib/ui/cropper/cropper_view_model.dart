@@ -35,10 +35,12 @@ class CroppverViewModel extends BaseViewModel {
   ui.Image? _uiImage;
   ui.Image? get uiImage => _uiImage;
 
-  double _cropHandleSize = 400;
+  final double _cropHandleSize = 500;
   double get cropHandleSize => _cropHandleSize;
-
   double get cropHandleOffset => _cropHandleSize / 2;
+
+  static const double _cropperOffset = 50;
+  double get cropperOffset => _cropperOffset;
 
   CropHandlePosition _cropHandlePosition = CropHandlePosition.none;
   CropHandlePosition get cropHandlePosition => _cropHandlePosition;
@@ -65,7 +67,6 @@ class CroppverViewModel extends BaseViewModel {
         resetContour();
       }
       _uiImage = result;
-      _cropHandleSize = 400;
       setBusy(false);
     });
   }
@@ -186,10 +187,22 @@ class CroppverViewModel extends BaseViewModel {
 
   void resetContour() {
     _contour = ScannerContour.fromEdges(
-      ScannerCoordinates.fromXY(0, 0),
-      ScannerCoordinates.fromXY(0, imgHeight!.toDouble()),
-      ScannerCoordinates.fromXY(imgWidth!.toDouble(), imgHeight!.toDouble()),
-      ScannerCoordinates.fromXY(imgWidth!.toDouble(), 0),
+      ScannerCoordinates.fromXY(
+        _cropperOffset,
+        _cropperOffset,
+      ),
+      ScannerCoordinates.fromXY(
+        _cropperOffset,
+        imgHeight!.toDouble() - _cropperOffset,
+      ),
+      ScannerCoordinates.fromXY(
+        imgWidth!.toDouble() - _cropperOffset,
+        imgHeight!.toDouble() - _cropperOffset,
+      ),
+      ScannerCoordinates.fromXY(
+        imgWidth!.toDouble() - _cropperOffset,
+        _cropperOffset,
+      ),
     );
   }
 

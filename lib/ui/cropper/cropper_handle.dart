@@ -6,9 +6,11 @@ class CropperHandle extends StatelessWidget {
     this.cropHandleSize = 20,
     this.onTapDown,
     this.onTapUp,
+    this.activeHandle = false,
   }) : super(key: key);
 
   final double cropHandleSize;
+  final bool activeHandle;
 
   final VoidCallback? onTapDown;
   final VoidCallback? onTapUp;
@@ -39,10 +41,10 @@ class CropperHandle extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(cropHandleSize),
               ),
-              color: Colors.white,
+              color: activeHandle ? Colors.blue : Colors.white,
               child: SizedBox(
-                height: cropHandleSize / 3,
-                width: cropHandleSize / 3,
+                height: cropHandleSize / 3.8,
+                width: cropHandleSize / 3.8,
               ),
             ),
           ],

@@ -42,6 +42,10 @@ class CropperView extends StatelessWidget {
                       alignment: FractionalOffset.center,
                       child: ClipRRect(
                         child: GestureDetector(
+                          behavior: HitTestBehavior.deferToChild,
+                          onPanStart: (detail) {
+                            model.setCropHandlePosition(detail.localPosition);
+                          },
                           onPanUpdate: (detail) {
                             model.setCropHandlePosition(detail.localPosition);
                           },
@@ -71,6 +75,8 @@ class CropperView extends StatelessWidget {
                                   onTapDown: () => model.setActiveCropHandle(
                                     CropHandlePosition.topLeft,
                                   ),
+                                  activeHandle: model.cropHandlePosition ==
+                                      CropHandlePosition.topLeft,
                                   onTapUp: model.clearActiveCrophandle,
                                 ),
                               ),
@@ -84,6 +90,8 @@ class CropperView extends StatelessWidget {
                                   onTapDown: () => model.setActiveCropHandle(
                                     CropHandlePosition.bottomLeft,
                                   ),
+                                  activeHandle: model.cropHandlePosition ==
+                                      CropHandlePosition.bottomLeft,
                                   onTapUp: model.clearActiveCrophandle,
                                 ),
                               ),
@@ -97,6 +105,8 @@ class CropperView extends StatelessWidget {
                                   onTapDown: () => model.setActiveCropHandle(
                                     CropHandlePosition.bottomRight,
                                   ),
+                                  activeHandle: model.cropHandlePosition ==
+                                      CropHandlePosition.bottomRight,
                                   onTapUp: model.clearActiveCrophandle,
                                 ),
                               ),
@@ -110,6 +120,8 @@ class CropperView extends StatelessWidget {
                                   onTapDown: () => model.setActiveCropHandle(
                                     CropHandlePosition.topRight,
                                   ),
+                                  activeHandle: model.cropHandlePosition ==
+                                      CropHandlePosition.topRight,
                                   onTapUp: model.clearActiveCrophandle,
                                 ),
                               ),
