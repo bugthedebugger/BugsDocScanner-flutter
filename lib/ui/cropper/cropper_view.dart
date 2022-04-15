@@ -2,8 +2,9 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bugs_scanner/data/scanner_contour.dart';
-import 'package:bugs_scanner/ui/cropper/cropper_handle.dart';
 import 'package:bugs_scanner/ui/cropper/cropper_view_model.dart';
+import 'package:bugs_scanner/ui/cropper/widgets/cropper_handle.dart';
+import 'package:bugs_scanner/ui/cropper/widgets/magnifying_glass_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -50,13 +51,16 @@ class CropperView extends StatelessWidget {
                         child: GestureDetector(
                           behavior: HitTestBehavior.deferToChild,
                           onPanStart: (detail) {
+                            model.setMagnifierOffset(detail.localPosition);
                             model.setCropHandlePosition(detail.localPosition);
                           },
                           onPanUpdate: (detail) {
+                            model.setMagnifierOffset(detail.localPosition);
                             model.setCropHandlePosition(detail.localPosition);
                           },
                           onPanEnd: (_) {
                             model.clearActiveCrophandle();
+                            model.setMagnifierOffset(null);
                           },
                           child: Stack(
                             children: [
@@ -131,6 +135,38 @@ class CropperView extends StatelessWidget {
                                   onTapUp: model.clearActiveCrophandle,
                                 ),
                               ),
+                              if (model.magnifierOffset != null &&
+                                  model.cropHandlePosition !=
+                                      CropHandlePosition.none) ...[
+                                if (model.magnifierOffset!.dx >
+                                    model.imgWidth! / 2)
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: MagnifyingGlassWidget(
+                                      image: model.uiImage!,
+                                      magnifierOffset: model.magnifierOffset!,
+                                      size: Size(
+                                        model.imgWidth!.toDouble(),
+                                        model.imgHeight!.toDouble(),
+                                      ),
+                                    ),
+                                  ),
+                                if (model.magnifierOffset!.dx <
+                                    model.imgWidth! / 2)
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: MagnifyingGlassWidget(
+                                      image: model.uiImage!,
+                                      magnifierOffset: model.magnifierOffset!,
+                                      size: Size(
+                                        model.imgWidth!.toDouble(),
+                                        model.imgHeight!.toDouble(),
+                                      ),
+                                    ),
+                                  ),
+                              ]
                             ],
                           ),
                         ),
@@ -239,8 +275,7 @@ class CropEditorPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant CropEditorPainter oldDelegate) {
+    return oldDelegate.contour.toString() != contour.toString();
   }
-  //
 }

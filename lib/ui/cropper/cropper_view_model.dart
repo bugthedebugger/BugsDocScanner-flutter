@@ -53,6 +53,9 @@ class CroppverViewModel extends BaseViewModel {
   bool _throwException = false;
   bool _logExceptions = false;
 
+  Offset? _magnifierOffset;
+  Offset? get magnifierOffset => _magnifierOffset;
+
   Future<void> init(
     Uint8List img, {
     bool automaticBW = false,
@@ -79,6 +82,11 @@ class CroppverViewModel extends BaseViewModel {
       _uiImage = result;
       setBusy(false);
     });
+  }
+
+  void setMagnifierOffset(Offset? offset) {
+    _magnifierOffset = offset;
+    notifyListeners();
   }
 
   void setCropHandlePosition(ui.Offset offset) {
