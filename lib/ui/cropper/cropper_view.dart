@@ -10,11 +10,15 @@ import 'package:stacked/stacked.dart';
 class CropperView extends StatelessWidget {
   final Uint8List originalImage;
   final bool automaticBW;
+  final bool throwExceptions;
+  final bool logExceptions;
 
   const CropperView({
     Key? key,
     required this.originalImage,
     this.automaticBW = false,
+    this.throwExceptions = false,
+    this.logExceptions = false,
   }) : super(key: key);
 
   @override
@@ -24,6 +28,8 @@ class CropperView extends StatelessWidget {
       onModelReady: (model) => model.init(
         originalImage,
         automaticBW: automaticBW,
+        logExceptions: logExceptions,
+        throwExceptions: throwExceptions,
       ),
       builder: (context, model, chid) {
         return Scaffold(

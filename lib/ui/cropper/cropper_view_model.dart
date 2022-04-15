@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -48,10 +50,18 @@ class CroppverViewModel extends BaseViewModel {
   bool _automaticBW = false;
   bool get automaticBW => _automaticBW;
 
+  bool _throwException = false;
+  bool _logExceptions = false;
+
   Future<void> init(
     Uint8List img, {
     bool automaticBW = false,
+    bool throwExceptions = false,
+    bool logExceptions = false,
   }) async {
+    _throwException = throwExceptions;
+    _logExceptions = logExceptions;
+
     setBusy(true);
     _originalImage = img;
     _automaticBW = automaticBW;
@@ -153,7 +163,15 @@ class CroppverViewModel extends BaseViewModel {
         }
       }
     } catch (e) {
-      print(e);
+      if (_logExceptions) {
+        if (_logExceptions) {
+          print('Bugs Scanner Exception: $e');
+          print(e);
+        }
+      }
+      if (_throwException) {
+        rethrow;
+      }
     } finally {
       setBusy(false);
     }
@@ -179,7 +197,15 @@ class CroppverViewModel extends BaseViewModel {
         }
       }
     } catch (e) {
-      print(e);
+      if (_logExceptions) {
+        if (_logExceptions) {
+          print('Bugs Scanner Exception: $e');
+          print(e);
+        }
+      }
+      if (_throwException) {
+        rethrow;
+      }
     } finally {
       setBusy(false);
     }

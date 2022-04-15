@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:typed_data';
 
 import 'package:bugs_scanner/app/app.locator.dart';
@@ -18,7 +20,18 @@ class ScannerViewModel extends BaseViewModel {
   CameraController? _controller;
   CameraController? get controller => _controller;
 
-  Future<void> init() async {
+  FlashMode _flashMode = FlashMode.auto;
+  FlashMode get flashMode => _flashMode;
+
+  bool _throwException = false;
+  bool _logExceptions = false;
+
+  Future<void> init({
+    bool throwException = false,
+    bool logException = false,
+  }) async {
+    _throwException = throwException;
+    _logExceptions = logException;
     setBusy(true);
     try {
       _cameraPermissionGranted = await Permission.camera.isGranted;
@@ -40,7 +53,15 @@ class ScannerViewModel extends BaseViewModel {
         await selectCamera(0);
       }
     } catch (e) {
-      print('Exception: $e');
+      if (_logExceptions) {
+        if (_logExceptions) {
+          print('Bugs Scanner Exception: $e');
+          print(e);
+        }
+      }
+      if (_throwException) {
+        rethrow;
+      }
     } finally {
       setBusy(false);
     }
@@ -57,7 +78,15 @@ class ScannerViewModel extends BaseViewModel {
         );
       }
     } catch (e) {
-      print(e);
+      if (_logExceptions) {
+        if (_logExceptions) {
+          print('Bugs Scanner Exception: $e');
+          print(e);
+        }
+      }
+      if (_throwException) {
+        rethrow;
+      }
     } finally {
       setBusy(false);
     }
@@ -79,6 +108,47 @@ class ScannerViewModel extends BaseViewModel {
       );
       await _controller?.initialize();
     }
+  }
+
+  void flashModeAuto() {
+    _flashMode = FlashMode.auto;
+    controller?.setFlashMode(flashMode);
+    notifyListeners();
+  }
+
+  void flashModeAlways() {
+    _flashMode = FlashMode.always;
+    controller?.setFlashMode(flashMode);
+    notifyListeners();
+  }
+
+  void flashModeOff() {
+    _flashMode = FlashMode.off;
+    controller?.setFlashMode(flashMode);
+    notifyListeners();
+  }
+
+  int _flashCounter = 0;
+  void toggleFlashModes() {
+    _flashCounter++;
+    _flashCounter = _flashCounter % 3;
+    switch (_flashCounter) {
+      case 0:
+        flashModeAuto();
+        break;
+      case 1:
+        flashModeAlways();
+        break;
+      case 2:
+        flashModeOff();
+        break;
+      default:
+        flashModeAuto();
+    }
+  }
+
+  void back() {
+    _navigationService.back();
   }
 
   @override

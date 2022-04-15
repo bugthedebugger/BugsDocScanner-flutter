@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ScannerView extends StatefulWidget {
-  const ScannerView({Key? key}) : super(key: key);
+  final bool throwExceptions;
+  final bool logExceptions;
+
+  const ScannerView({
+    Key? key,
+    this.throwExceptions = false,
+    this.logExceptions = false,
+  }) : super(key: key);
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -65,10 +72,32 @@ class _ScannerViewState extends State<ScannerView> {
                       children: [
                         IconButton(
                           onPressed: () {
+                            model.back();
+                          },
+                          icon: const Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
                             model.snap();
                           },
                           icon: const Icon(
                             Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            model.toggleFlashModes();
+                          },
+                          icon: Icon(
+                            model.flashMode == FlashMode.auto
+                                ? Icons.flash_auto
+                                : model.flashMode == FlashMode.always
+                                    ? Icons.flash_on
+                                    : Icons.flash_off,
                             color: Colors.white,
                           ),
                         ),
