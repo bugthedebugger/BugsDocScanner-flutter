@@ -32,7 +32,7 @@ class BugsScannerService {
         ),
       );
       if (originalImage != null) {
-        final Uint8List buffer = await navigationService.navigateToView(
+        final Uint8List? buffer = await navigationService.navigateToView(
           CropperView(
             originalImage: originalImage,
             automaticBW: automaticBW,
