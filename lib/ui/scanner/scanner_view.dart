@@ -29,7 +29,10 @@ class _ScannerViewState extends State<ScannerView> {
         ),
         child: ViewModelBuilder<ScannerViewModel>.reactive(
           viewModelBuilder: () => ScannerViewModel(),
-          onModelReady: (model) => model.init(),
+          onModelReady: (model) => model.init(
+            logException: widget.logExceptions,
+            throwException: widget.throwExceptions,
+          ),
           builder: (ctx, model, child) {
             if (model.camerPermission) {
               return Column(

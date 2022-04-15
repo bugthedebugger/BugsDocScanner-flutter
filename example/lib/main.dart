@@ -54,6 +54,8 @@ class _ScannerExampleState extends State<ScannerExample> {
                 onPressed: () async {
                   _buffer = await BugsScannerService.scan(
                     automaticBW: true,
+                    logExceptions: true,
+                    throwExceptions: true,
                   );
                   setState(() {});
                 },

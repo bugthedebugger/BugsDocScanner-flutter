@@ -26,13 +26,18 @@ class BugsScannerService {
       final NavigationService navigationService =
           bsLocator<NavigationService>();
       final originalImage = await navigationService.navigateToView<Uint8List?>(
-        const ScannerView(),
+        ScannerView(
+          logExceptions: logExceptions,
+          throwExceptions: throwExceptions,
+        ),
       );
       if (originalImage != null) {
         final Uint8List buffer = await navigationService.navigateToView(
           CropperView(
             originalImage: originalImage,
             automaticBW: automaticBW,
+            logExceptions: logExceptions,
+            throwExceptions: throwExceptions,
           ),
         );
 
