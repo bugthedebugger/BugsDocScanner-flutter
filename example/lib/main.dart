@@ -55,7 +55,6 @@ class _ScannerExampleState extends State<ScannerExample> {
                   _buffer = await BugsScannerService.scan(
                     automaticBW: true,
                     logExceptions: true,
-                    throwExceptions: true,
                   );
                   setState(() {});
                 },
