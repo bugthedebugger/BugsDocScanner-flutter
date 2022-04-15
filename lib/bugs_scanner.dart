@@ -1,13 +1,2 @@
-
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-
-class BugsScanner {
-  static const MethodChannel _channel = MethodChannel('bugs_scanner');
-
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-}
+export 'package:bugs_scanner/ffi/bugs_scanner_adapter.dart';
+export 'package:bugs_scanner/services/bugs_scanner_service.dart';
