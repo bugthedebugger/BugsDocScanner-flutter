@@ -1,3 +1,5 @@
 # ninja log v5
 0	2987	1649846911	CMakeFiles/bugsscanner.dir/home/bugthedebugger/Documents/Flutter_Projects/bugs_scanner/ios/Classes/bugsscanner.cpp.o	26f5be1799e90f33
 2988	3028	1649846911	/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/release/obj/x86/libbugsscanner.so	2ea34ed342b5625c
+1	3071	1650271214	CMakeFiles/bugsscanner.dir/home/bugthedebugger/Documents/Flutter_Projects/bugs_scanner/ios/Classes/bugsscanner.cpp.o	26f5be1799e90f33
+3071	3111	1650271214	/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/example/build/bugs_scanner/intermediates/cmake/release/obj/x86/libbugsscanner.so	2ea34ed342b5625c

@@ -165,4 +165,64 @@ class BugsScannerService {
 
     return null;
   }
+
+  static Future<Uint8List?> imageToPDF(
+    String filePath, {
+    bool throwExceptions = false,
+    bool logExceptions = kReleaseMode,
+  }) async {
+    try {
+      final BugsPDFService pdfService = bsLocator<BugsPDFService>();
+      final File imageFile = File.fromUri(
+        Uri.parse(filePath),
+      );
+      final pdfBuffer = await pdfService.convertImageToPdf(
+        imageFile.readAsBytesSync(),
+      );
+
+      return pdfBuffer;
+    } catch (e) {
+      if (logExceptions) {
+        print('Bugs Scanner Exception: $e');
+        print(e);
+      }
+      if (throwExceptions) {
+        rethrow;
+      }
+    }
+    return null;
+  }
+
+  static Future<File?> imageToPDFAsFile(
+    String filePath, {
+    bool throwExceptions = false,
+    bool logExceptions = kReleaseMode,
+  }) async {
+    try {
+      final BugsPDFService pdfService = bsLocator<BugsPDFService>();
+      final File imageFile = File.fromUri(
+        Uri.parse(filePath),
+      );
+      final pdfBuffer = await pdfService.convertImageToPdf(
+        imageFile.readAsBytesSync(),
+      );
+
+      File pdfFile = File(
+        '${(await getTemporaryDirectory()).path}/${DateTime.now().millisecondsSinceEpoch}.pdf',
+      );
+
+      await pdfFile.writeAsBytes(pdfBuffer);
+
+      return pdfFile;
+    } catch (e) {
+      if (logExceptions) {
+        print('Bugs Scanner Exception: $e');
+        print(e);
+      }
+      if (throwExceptions) {
+        rethrow;
+      }
+    }
+    return null;
+  }
 }
