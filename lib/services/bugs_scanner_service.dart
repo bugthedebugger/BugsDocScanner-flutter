@@ -115,7 +115,7 @@ class BugsScannerService {
       }
 
       File imgFile = File(
-        '${(await getTemporaryDirectory()).path}/${DateTime.now().millisecondsSinceEpoch}.pdf',
+        '${(await getTemporaryDirectory()).path}/${DateTime.now().millisecondsSinceEpoch}.jpg',
       );
 
       imgFile = await imgFile.writeAsBytes(buffer);
