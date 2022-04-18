@@ -10,6 +10,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/bugs_pdf_service.dart';
+
 final bsLocator = StackedLocator.instance;
 
 void bugsscannerDependencyInit(
@@ -20,4 +22,5 @@ void bugsscannerDependencyInit(
 
 // Register dependencies
   bsLocator.registerLazySingleton(() => NavigationService());
+  bsLocator.registerLazySingleton(() => BugsPDFService());
 }

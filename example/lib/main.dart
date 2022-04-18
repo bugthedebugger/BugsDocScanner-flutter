@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:bugs_scanner/bugs_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +35,16 @@ class ScannerExample extends StatefulWidget {
 
 class _ScannerExampleState extends State<ScannerExample> {
   Uint8List? _buffer;
+  PDFDocument? _doc;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: (_buffer != null || _doc != null)
+          ? AppBar(
+              title: Text(_doc != null ? 'PDF' : 'Image'),
+            )
+          : null,
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -43,9 +52,13 @@ class _ScannerExampleState extends State<ScannerExample> {
         children: [
           if (_buffer != null)
             Expanded(
-              child: InteractiveViewer(
-                child: Image.memory(_buffer!),
-              ),
+              child: _doc == null
+                  ? InteractiveViewer(
+                      child: Image.memory(_buffer!),
+                    )
+                  : PDFViewer(
+                      document: _doc!,
+                    ),
             ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -56,9 +69,31 @@ class _ScannerExampleState extends State<ScannerExample> {
                     automaticBW: true,
                     logExceptions: true,
                   );
+                  _doc = null;
                   setState(() {});
                 },
-                child: const Text('Scan document'),
+                child: const Text('Scan as Image'),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  _buffer = await BugsScannerService.scanAsPDF(
+                    automaticBW: true,
+                    logExceptions: true,
+                  );
+
+                  File f = File(
+                    '${(await getTemporaryDirectory()).path}${DateTime.now().millisecondsSinceEpoch}.pdf',
+                  );
+                  f = await f.writeAsBytes(_buffer!);
+
+                  _doc = await PDFDocument.fromFile(f);
+
+                  setState(() {});
+                },
+                child: const Text('Scan as PDF'),
               ),
             ],
           ),
