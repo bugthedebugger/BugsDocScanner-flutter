@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bugs_scanner/app/app.locator.dart';
-import 'package:bugs_scanner/ffi/bugs_scanner_adapter.dart';
 import 'package:bugs_scanner/services/bugs_pdf_service.dart';
 import 'package:bugs_scanner/ui/cropper/cropper_view.dart';
 import 'package:bugs_scanner/ui/scanner/scanner_view.dart';
@@ -225,10 +224,5 @@ class BugsScannerService {
       }
     }
     return null;
-  }
-
-  static void testFileName() async {
-    String filename = await BugsScannerAdapter.getFileName(".jpg");
-    print('File Name from adapter: $filename');
   }
 }

@@ -95,15 +95,6 @@ class _ScannerExampleState extends State<ScannerExample> {
                 },
                 child: const Text('Scan as PDF'),
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  BugsScannerService.testFileName();
-                },
-                child: const Text('Test'),
-              ),
             ],
           ),
         ],
