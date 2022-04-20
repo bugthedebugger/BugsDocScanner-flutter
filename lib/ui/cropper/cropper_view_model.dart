@@ -105,7 +105,7 @@ class CroppverViewModel extends BaseViewModel {
     switch (cropHandlePosition) {
       case CropHandlePosition.topLeft:
         _contour = ScannerContour.fromEdges(
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.bottomLeft,
           contour!.bottomRight,
           contour!.topRight,
@@ -115,7 +115,7 @@ class CroppverViewModel extends BaseViewModel {
       case CropHandlePosition.bottomLeft:
         _contour = ScannerContour.fromEdges(
           contour!.topLeft,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.bottomRight,
           contour!.topRight,
         );
@@ -125,7 +125,7 @@ class CroppverViewModel extends BaseViewModel {
         _contour = ScannerContour.fromEdges(
           contour!.topLeft,
           contour!.bottomLeft,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.topRight,
         );
         notifyListeners();
@@ -135,7 +135,7 @@ class CroppverViewModel extends BaseViewModel {
           contour!.topLeft,
           contour!.bottomLeft,
           contour!.bottomRight,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
         );
         notifyListeners();
         break;
@@ -234,20 +234,20 @@ class CroppverViewModel extends BaseViewModel {
   void resetContour() {
     _contour = ScannerContour.fromEdges(
       ScannerCoordinates.fromXY(
-        _cropperOffset,
-        _cropperOffset,
+        _cropperOffset.toInt(),
+        _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        _cropperOffset,
-        imgHeight!.toDouble() - _cropperOffset,
+        _cropperOffset.toInt(),
+        imgHeight! - _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        imgWidth!.toDouble() - _cropperOffset,
-        imgHeight!.toDouble() - _cropperOffset,
+        imgWidth! - _cropperOffset.toInt(),
+        imgHeight! - _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        imgWidth!.toDouble() - _cropperOffset,
-        _cropperOffset,
+        imgWidth! - _cropperOffset.toInt(),
+        _cropperOffset.toInt(),
       ),
     );
   }

@@ -41,8 +41,8 @@ class BugsScannerBindings {
       .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   Coordinates createCoordinates(
-    double x,
-    double y,
+    int x,
+    int y,
   ) {
     return _createCoordinates(
       x,
@@ -51,10 +51,10 @@ class BugsScannerBindings {
   }
 
   late final _createCoordinatesPtr =
-      _lookup<ffi.NativeFunction<Coordinates Function(ffi.Float, ffi.Float)>>(
+      _lookup<ffi.NativeFunction<Coordinates Function(ffi.Int64, ffi.Int64)>>(
           'createCoordinates');
   late final _createCoordinates =
-      _createCoordinatesPtr.asFunction<Coordinates Function(double, double)>();
+      _createCoordinatesPtr.asFunction<Coordinates Function(int, int)>();
 
   Contour createContour(
     Coordinates topLeft,
@@ -469,16 +469,16 @@ class __fsid_t extends ffi.Struct {
 class ImgBuffer extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> buffer;
 
-  @ffi.Uint64()
+  @ffi.Int64()
   external int size;
 }
 
 class Coordinates extends ffi.Struct {
-  @ffi.Float()
-  external double x;
+  @ffi.Int64()
+  external int x;
 
-  @ffi.Float()
-  external double y;
+  @ffi.Int64()
+  external int y;
 }
 
 class Contour extends ffi.Struct {

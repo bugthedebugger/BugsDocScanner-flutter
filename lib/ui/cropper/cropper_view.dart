@@ -258,26 +258,30 @@ class CropEditorPainter extends CustomPainter {
     canvas.drawImage(image, Offset.zero, Paint());
     if (contour != null) {
       canvas.drawLine(
-        Offset(contour!.topLeft.x, contour!.topLeft.y),
-        Offset(contour!.bottomLeft.x, contour!.bottomLeft.y),
+        Offset(contour!.topLeft.x.toDouble(), contour!.topLeft.y.toDouble()),
+        Offset(
+            contour!.bottomLeft.x.toDouble(), contour!.bottomLeft.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.bottomLeft.x, contour!.bottomLeft.y),
-        Offset(contour!.bottomRight.x, contour!.bottomRight.y),
+        Offset(
+            contour!.bottomLeft.x.toDouble(), contour!.bottomLeft.y.toDouble()),
+        Offset(contour!.bottomRight.x.toDouble(),
+            contour!.bottomRight.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.bottomRight.x, contour!.bottomRight.y),
-        Offset(contour!.topRight.x, contour!.topRight.y),
+        Offset(contour!.bottomRight.x.toDouble(),
+            contour!.bottomRight.y.toDouble()),
+        Offset(contour!.topRight.x.toDouble(), contour!.topRight.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.topRight.x, contour!.topRight.y),
-        Offset(contour!.topLeft.x, contour!.topLeft.y),
+        Offset(contour!.topRight.x.toDouble(), contour!.topRight.y.toDouble()),
+        Offset(contour!.topLeft.x.toDouble(), contour!.topLeft.y.toDouble()),
         cropperLine,
       );
     }
