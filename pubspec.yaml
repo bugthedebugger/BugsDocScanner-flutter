@@ -16,6 +16,8 @@ dependencies:
   stacked_services: ^0.8.17
   permission_handler: ^9.2.0
   camera: ^0.9.4+19
+  pdf: ^3.7.4
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,8 @@
 import 'package:bugs_scanner/ffi/bugs_scanner_bindings.dart';
 
 class ScannerCoordinates {
-  final double x;
-  final double y;
+  final int x;
+  final int y;
 
   ScannerCoordinates.fromXY(this.x, this.y);
 

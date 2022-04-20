@@ -37,7 +37,7 @@ class CroppverViewModel extends BaseViewModel {
   ui.Image? _uiImage;
   ui.Image? get uiImage => _uiImage;
 
-  final double _cropHandleSize = 500;
+  double _cropHandleSize = 500;
   double get cropHandleSize => _cropHandleSize;
   double get cropHandleOffset => _cropHandleSize / 2;
 
@@ -56,12 +56,24 @@ class CroppverViewModel extends BaseViewModel {
   Offset? _magnifierOffset;
   Offset? get magnifierOffset => _magnifierOffset;
 
+  double _magnifyingGlassRadius = 200;
+  double get magnifyingGlassRadius => _magnifyingGlassRadius;
+
+  double _strokeWidth = 20;
+  double get strokeWidth => _strokeWidth;
+
   Future<void> init(
     Uint8List img, {
     bool automaticBW = false,
     bool throwExceptions = false,
     bool logExceptions = false,
+    double cropHandleSize = 500,
+    double magnifyingGlassRadius = 200,
+    double strokeWidth = 20,
   }) async {
+    _strokeWidth = strokeWidth;
+    _cropHandleSize = cropHandleSize;
+    _magnifyingGlassRadius = magnifyingGlassRadius;
     _throwException = throwExceptions;
     _logExceptions = logExceptions;
 
@@ -93,7 +105,7 @@ class CroppverViewModel extends BaseViewModel {
     switch (cropHandlePosition) {
       case CropHandlePosition.topLeft:
         _contour = ScannerContour.fromEdges(
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.bottomLeft,
           contour!.bottomRight,
           contour!.topRight,
@@ -103,7 +115,7 @@ class CroppverViewModel extends BaseViewModel {
       case CropHandlePosition.bottomLeft:
         _contour = ScannerContour.fromEdges(
           contour!.topLeft,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.bottomRight,
           contour!.topRight,
         );
@@ -113,7 +125,7 @@ class CroppverViewModel extends BaseViewModel {
         _contour = ScannerContour.fromEdges(
           contour!.topLeft,
           contour!.bottomLeft,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
           contour!.topRight,
         );
         notifyListeners();
@@ -123,7 +135,7 @@ class CroppverViewModel extends BaseViewModel {
           contour!.topLeft,
           contour!.bottomLeft,
           contour!.bottomRight,
-          ScannerCoordinates.fromXY(offset.dx, offset.dy),
+          ScannerCoordinates.fromXY(offset.dx.toInt(), offset.dy.toInt()),
         );
         notifyListeners();
         break;
@@ -222,20 +234,20 @@ class CroppverViewModel extends BaseViewModel {
   void resetContour() {
     _contour = ScannerContour.fromEdges(
       ScannerCoordinates.fromXY(
-        _cropperOffset,
-        _cropperOffset,
+        _cropperOffset.toInt(),
+        _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        _cropperOffset,
-        imgHeight!.toDouble() - _cropperOffset,
+        _cropperOffset.toInt(),
+        imgHeight! - _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        imgWidth!.toDouble() - _cropperOffset,
-        imgHeight!.toDouble() - _cropperOffset,
+        imgWidth! - _cropperOffset.toInt(),
+        imgHeight! - _cropperOffset.toInt(),
       ),
       ScannerCoordinates.fromXY(
-        imgWidth!.toDouble() - _cropperOffset,
-        _cropperOffset,
+        imgWidth! - _cropperOffset.toInt(),
+        _cropperOffset.toInt(),
       ),
     );
   }

@@ -53,13 +53,12 @@ class BugsScannerAdapter {
       (IsolateParams params) {
         BugsScannerBindings _bindings = BugsScannerBindings();
         final Pointer<Uint8> buffer =
-            malloc.allocate<Uint8>(params.data.length);
-        for (int i = 0; i < params.data.length; i++) {
+            malloc.allocate<Uint8>(params.data.lengthInBytes);
+        for (int i = 0; i < params.data.lengthInBytes; i++) {
           buffer[i] = params.data[i];
         }
-        final ImgBuffer imgBuffer =
-            _bindings.createImgBuffer(buffer, params.data.length);
-        final _buf = _bindings.warpAndGetBWImageSaveBufInBuf(imgBuffer);
+        final _buf = _bindings.warpAndGetBWImageSaveBufInBuf(
+            buffer, params.data.lengthInBytes);
         final Uint8List finalBuffer = _buf.buffer.asTypedList(_buf.size);
         malloc.free(buffer);
         params.sendPort.send(finalBuffer);
@@ -88,19 +87,16 @@ class BugsScannerAdapter {
         final BugsScannerBindings bindings = BugsScannerBindings();
         final Uint8List imbuffer = (params.data!.first as Uint8List);
         final Pointer<Uint8> buffer = malloc.allocate<Uint8>(
-          imbuffer.length,
+          imbuffer.lengthInBytes,
         );
-        for (int i = 0; i < imbuffer.length; i++) {
+        for (int i = 0; i < imbuffer.lengthInBytes; i++) {
           buffer[i] = imbuffer[i];
         }
-        final ImgBuffer imgBuffer = bindings.createImgBuffer(
-          buffer,
-          imbuffer.length,
-        );
         final Contour contour =
             (params.data!.elementAt(1) as ScannerContour).toContour();
         final _buf = bindings.warpAndGetBWImageBufCustomContourInBuf(
-          imgBuffer,
+          buffer,
+          imbuffer.lengthInBytes,
           contour,
         );
         final Uint8List finalBuffer = _buf.buffer.asTypedList(_buf.size);
@@ -130,19 +126,15 @@ class BugsScannerAdapter {
         final BugsScannerBindings bindings = BugsScannerBindings();
         final Uint8List imbuffer = (params.data!.first as Uint8List);
         final Pointer<Uint8> buffer = malloc.allocate<Uint8>(
-          imbuffer.length,
+          imbuffer.lengthInBytes,
         );
-        for (int i = 0; i < imbuffer.length; i++) {
-          buffer[i] = imbuffer[i];
-        }
-        final ImgBuffer imgBuffer = bindings.createImgBuffer(
-          buffer,
-          imbuffer.length,
-        );
+        buffer.asTypedList(imbuffer.lengthInBytes).setAll(0, imbuffer);
+
         final Contour contour =
             (params.data!.elementAt(1) as ScannerContour).toContour();
         final _buf = bindings.warpAndGetOriginalImageBufCustonContourInBuf(
-          imgBuffer,
+          buffer,
+          imbuffer.lengthInBytes,
           contour,
         );
         final Uint8List finalBuffer = _buf.buffer.asTypedList(_buf.size);
@@ -169,13 +161,15 @@ class BugsScannerAdapter {
       (IsolateParams params) {
         BugsScannerBindings _bindings = BugsScannerBindings();
         final Pointer<Uint8> buffer =
-            malloc.allocate<Uint8>(params.data.length);
-        for (int i = 0; i < params.data.length; i++) {
+            malloc.allocate<Uint8>(params.data.lengthInBytes);
+        for (int i = 0; i < params.data.lengthInBytes; i++) {
           buffer[i] = params.data[i];
         }
-        final ImgBuffer imgBuffer =
-            _bindings.createImgBuffer(buffer, params.data.length);
-        final _buf = _bindings.warpAndGetOriginalImageSaveBufInBuf(imgBuffer);
+
+        final _buf = _bindings.warpAndGetOriginalImageSaveBufInBuf(
+          buffer,
+          params.data.lengthInBytes,
+        );
         final Uint8List finalBuffer = _buf.buffer.asTypedList(_buf.size);
         malloc.free(buffer);
         params.sendPort.send(finalBuffer);
@@ -305,19 +299,17 @@ class BugsScannerAdapter {
       (IsolateParams<Uint8List> params) {
         final BugsScannerBindings bindings = BugsScannerBindings();
         final Pointer<Uint8> imgBuffer = malloc.allocate<Uint8>(
-          params.data!.length,
+          params.data!.lengthInBytes,
         );
 
-        for (int i = 0; i < params.data!.length; i++) {
-          imgBuffer[i] = params.data![i];
-        }
+        imgBuffer
+            .asTypedList(params.data!.lengthInBytes)
+            .setAll(0, params.data!);
 
-        final ImgBuffer buf = bindings.createImgBuffer(
+        final Contour c = bindings.findContourFromImageBuffer(
           imgBuffer,
-          params.data!.length,
+          params.data!.lengthInBytes,
         );
-
-        final Contour c = bindings.findContourFromImageBuffer(buf);
 
         malloc.free(imgBuffer);
 

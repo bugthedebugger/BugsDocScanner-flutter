@@ -62,13 +62,9 @@ class ScannerContour {
   }
 
   bool get isValid {
-    return !((topLeft.x < 1 && topLeft.x > 0) ||
-        (bottomLeft.x < 1 && bottomLeft.x > 0) ||
-        (bottomRight.x < 1 && bottomRight.x > 0) ||
-        (topRight.x < 1 && topRight.x > 0) ||
-        (topLeft.y < 1 && topLeft.y > 0) ||
-        (bottomLeft.y < 1 && bottomLeft.y > 0) ||
-        (bottomRight.y < 1 && bottomRight.y > 0) ||
-        (topRight.y < 1 && topRight.y > 0));
+    return !((topLeft.x == 0 && topLeft.y == 0) &&
+        (bottomLeft.x == 0 && bottomLeft.y == 0) &&
+        (bottomRight.x == 0 && bottomRight.y == 0) &&
+        (topRight.x == 0 && topRight.y == 0));
   }
 }
