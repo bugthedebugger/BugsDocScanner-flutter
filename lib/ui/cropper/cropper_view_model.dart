@@ -37,7 +37,7 @@ class CroppverViewModel extends BaseViewModel {
   ui.Image? _uiImage;
   ui.Image? get uiImage => _uiImage;
 
-  final double _cropHandleSize = 500;
+  double _cropHandleSize = 500;
   double get cropHandleSize => _cropHandleSize;
   double get cropHandleOffset => _cropHandleSize / 2;
 
@@ -56,12 +56,24 @@ class CroppverViewModel extends BaseViewModel {
   Offset? _magnifierOffset;
   Offset? get magnifierOffset => _magnifierOffset;
 
+  double _magnifyingGlassRadius = 200;
+  double get magnifyingGlassRadius => _magnifyingGlassRadius;
+
+  double _strokeWidth = 20;
+  double get strokeWidth => _strokeWidth;
+
   Future<void> init(
     Uint8List img, {
     bool automaticBW = false,
     bool throwExceptions = false,
     bool logExceptions = false,
+    double cropHandleSize = 500,
+    double magnifyingGlassRadius = 200,
+    double strokeWidth = 20,
   }) async {
+    _strokeWidth = strokeWidth;
+    _cropHandleSize = cropHandleSize;
+    _magnifyingGlassRadius = magnifyingGlassRadius;
     _throwException = throwExceptions;
     _logExceptions = logExceptions;
 

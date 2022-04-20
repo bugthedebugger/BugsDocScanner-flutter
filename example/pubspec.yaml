@@ -5,6 +5,8 @@ description: Demonstrates how to use the bugs_scanner plugin.
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
+version: 0.0.5+5
+
 environment:
   sdk: ">=2.16.2 <3.0.0"
 

@@ -31,6 +31,8 @@ class CropperView extends StatelessWidget {
         automaticBW: automaticBW,
         logExceptions: logExceptions,
         throwExceptions: throwExceptions,
+        cropHandleSize: MediaQuery.of(context).size.width * 0.3,
+        strokeWidth: MediaQuery.of(context).size.width * 0.02,
       ),
       builder: (context, model, chid) {
         return Scaffold(
@@ -68,6 +70,7 @@ class CropperView extends StatelessWidget {
                                 painter: CropEditorPainter(
                                   image: model.uiImage!,
                                   contour: model.contour,
+                                  strokeWidth: model.strokeWidth,
                                 ),
                                 size: Size(
                                   model.imgWidth!.toDouble(),
@@ -146,6 +149,8 @@ class CropperView extends StatelessWidget {
                                     child: MagnifyingGlassWidget(
                                       image: model.uiImage!,
                                       magnifierOffset: model.magnifierOffset!,
+                                      height: model.magnifyingGlassRadius,
+                                      width: model.magnifyingGlassRadius,
                                       size: Size(
                                         model.imgWidth!.toDouble(),
                                         model.imgHeight!.toDouble(),
@@ -160,6 +165,8 @@ class CropperView extends StatelessWidget {
                                     child: MagnifyingGlassWidget(
                                       image: model.uiImage!,
                                       magnifierOffset: model.magnifierOffset!,
+                                      height: model.magnifyingGlassRadius,
+                                      width: model.magnifyingGlassRadius,
                                       size: Size(
                                         model.imgWidth!.toDouble(),
                                         model.imgHeight!.toDouble(),
@@ -234,9 +241,11 @@ class CropperView extends StatelessWidget {
 class CropEditorPainter extends CustomPainter {
   final ScannerContour? contour;
   final ui.Image image;
+  final double strokeWidth;
 
   CropEditorPainter({
     required this.image,
+    required this.strokeWidth,
     this.contour,
   });
 
@@ -244,7 +253,7 @@ class CropEditorPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint cropperLine = Paint()
       ..color = Colors.white
-      ..strokeWidth = 20;
+      ..strokeWidth = strokeWidth;
 
     canvas.drawImage(image, Offset.zero, Paint());
     if (contour != null) {
