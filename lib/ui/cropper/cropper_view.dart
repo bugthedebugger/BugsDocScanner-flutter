@@ -31,6 +31,9 @@ class CropperView extends StatelessWidget {
         automaticBW: automaticBW,
         logExceptions: logExceptions,
         throwExceptions: throwExceptions,
+        cropHandleSize: MediaQuery.of(context).size.width * 1,
+        strokeWidth: MediaQuery.of(context).size.width * 0.04,
+        magnifyingGlassRadius: MediaQuery.of(context).size.width * 1,
       ),
       builder: (context, model, chid) {
         return Scaffold(
@@ -68,6 +71,7 @@ class CropperView extends StatelessWidget {
                                 painter: CropEditorPainter(
                                   image: model.uiImage!,
                                   contour: model.contour,
+                                  strokeWidth: model.strokeWidth,
                                 ),
                                 size: Size(
                                   model.imgWidth!.toDouble(),
@@ -146,6 +150,8 @@ class CropperView extends StatelessWidget {
                                     child: MagnifyingGlassWidget(
                                       image: model.uiImage!,
                                       magnifierOffset: model.magnifierOffset!,
+                                      height: model.magnifyingGlassRadius,
+                                      width: model.magnifyingGlassRadius,
                                       size: Size(
                                         model.imgWidth!.toDouble(),
                                         model.imgHeight!.toDouble(),
@@ -160,6 +166,8 @@ class CropperView extends StatelessWidget {
                                     child: MagnifyingGlassWidget(
                                       image: model.uiImage!,
                                       magnifierOffset: model.magnifierOffset!,
+                                      height: model.magnifyingGlassRadius,
+                                      width: model.magnifyingGlassRadius,
                                       size: Size(
                                         model.imgWidth!.toDouble(),
                                         model.imgHeight!.toDouble(),
@@ -234,9 +242,11 @@ class CropperView extends StatelessWidget {
 class CropEditorPainter extends CustomPainter {
   final ScannerContour? contour;
   final ui.Image image;
+  final double strokeWidth;
 
   CropEditorPainter({
     required this.image,
+    required this.strokeWidth,
     this.contour,
   });
 
@@ -244,31 +254,35 @@ class CropEditorPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint cropperLine = Paint()
       ..color = Colors.white
-      ..strokeWidth = 20;
+      ..strokeWidth = strokeWidth;
 
     canvas.drawImage(image, Offset.zero, Paint());
     if (contour != null) {
       canvas.drawLine(
-        Offset(contour!.topLeft.x, contour!.topLeft.y),
-        Offset(contour!.bottomLeft.x, contour!.bottomLeft.y),
+        Offset(contour!.topLeft.x.toDouble(), contour!.topLeft.y.toDouble()),
+        Offset(
+            contour!.bottomLeft.x.toDouble(), contour!.bottomLeft.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.bottomLeft.x, contour!.bottomLeft.y),
-        Offset(contour!.bottomRight.x, contour!.bottomRight.y),
+        Offset(
+            contour!.bottomLeft.x.toDouble(), contour!.bottomLeft.y.toDouble()),
+        Offset(contour!.bottomRight.x.toDouble(),
+            contour!.bottomRight.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.bottomRight.x, contour!.bottomRight.y),
-        Offset(contour!.topRight.x, contour!.topRight.y),
+        Offset(contour!.bottomRight.x.toDouble(),
+            contour!.bottomRight.y.toDouble()),
+        Offset(contour!.topRight.x.toDouble(), contour!.topRight.y.toDouble()),
         cropperLine,
       );
 
       canvas.drawLine(
-        Offset(contour!.topRight.x, contour!.topRight.y),
-        Offset(contour!.topLeft.x, contour!.topLeft.y),
+        Offset(contour!.topRight.x.toDouble(), contour!.topRight.y.toDouble()),
+        Offset(contour!.topLeft.x.toDouble(), contour!.topLeft.y.toDouble()),
         cropperLine,
       );
     }

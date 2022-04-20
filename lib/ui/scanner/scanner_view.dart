@@ -42,8 +42,10 @@ class _ScannerViewState extends State<ScannerView> {
                     child: model.controller != null
                         ? Stack(
                             children: [
-                              CameraPreview(
-                                model.controller!,
+                              Center(
+                                child: CameraPreview(
+                                  model.controller!,
+                                ),
                               ),
                               if (model.isBusy)
                                 const Center(

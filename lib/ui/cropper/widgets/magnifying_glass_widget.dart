@@ -6,19 +6,23 @@ class MagnifyingGlassWidget extends StatelessWidget {
   final Size size;
   final ui.Image image;
   final Offset magnifierOffset;
+  final double width;
+  final double height;
 
   const MagnifyingGlassWidget({
     Key? key,
     required this.size,
     required this.image,
     required this.magnifierOffset,
+    required this.width,
+    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width * 1.5,
-      width: MediaQuery.of(context).size.width * 1.5,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         color: Colors.black,
         boxShadow: const [
@@ -30,17 +34,17 @@ class MagnifyingGlassWidget extends StatelessWidget {
           )
         ],
         borderRadius: BorderRadius.circular(
-          MediaQuery.of(context).size.width * 1.5,
+          width,
         ),
         border: Border.all(
           color: Colors.white,
-          width: MediaQuery.of(context).size.width * 0.05,
+          width: width * 0.05,
         ),
       ),
       child: ClipRRect(
         clipBehavior: Clip.antiAlias,
         borderRadius: BorderRadius.circular(
-          MediaQuery.of(context).size.width * 1.5,
+          width,
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -51,15 +55,15 @@ class MagnifyingGlassWidget extends StatelessWidget {
                 image: image,
                 offset: magnifierOffset,
                 containerSize: Size(
-                  MediaQuery.of(context).size.width * 1.5,
-                  MediaQuery.of(context).size.width * 1.5,
+                  width,
+                  width,
                 ),
               ),
             ),
             Icon(
               Icons.add,
               color: Colors.black,
-              size: MediaQuery.of(context).size.width * 0.4,
+              size: width * 0.4,
             ),
           ],
         ),

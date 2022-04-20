@@ -1,2 +1,0 @@
-ninja: Entering directory `/home/bugthedebugger/Documents/Flutter Projects/bugs_scanner/android/.cxx/cmake/release/armeabi-v7a'
-ninja: no work to do.

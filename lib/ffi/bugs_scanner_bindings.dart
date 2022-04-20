@@ -41,8 +41,8 @@ class BugsScannerBindings {
       .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   Coordinates createCoordinates(
-    double x,
-    double y,
+    int x,
+    int y,
   ) {
     return _createCoordinates(
       x,
@@ -51,10 +51,10 @@ class BugsScannerBindings {
   }
 
   late final _createCoordinatesPtr =
-      _lookup<ffi.NativeFunction<Coordinates Function(ffi.Float, ffi.Float)>>(
+      _lookup<ffi.NativeFunction<Coordinates Function(ffi.Int64, ffi.Int64)>>(
           'createCoordinates');
   late final _createCoordinates =
-      _createCoordinatesPtr.asFunction<Coordinates Function(double, double)>();
+      _createCoordinatesPtr.asFunction<Coordinates Function(int, int)>();
 
   Contour createContour(
     Coordinates topLeft,
@@ -167,12 +167,14 @@ class BugsScannerBindings {
       .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Int8>)>();
 
   ffi.Pointer<ffi.Int8> warpAndGetOriginalImageSaveFileInbuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     ffi.Pointer<ffi.Int8> savePath,
     ffi.Pointer<ffi.Int8> ext,
   ) {
     return _warpAndGetOriginalImageSaveFileInbuf(
       buf,
+      bufSize,
       savePath,
       ext,
     );
@@ -180,35 +182,43 @@ class BugsScannerBindings {
 
   late final _warpAndGetOriginalImageSaveFileInbufPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Int8> Function(
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Uint64,
+              ffi.Pointer<ffi.Int8>,
               ffi.Pointer<ffi.Int8>)>>('warpAndGetOriginalImageSaveFileInbuf');
   late final _warpAndGetOriginalImageSaveFileInbuf =
       _warpAndGetOriginalImageSaveFileInbufPtr.asFunction<
-          ffi.Pointer<ffi.Int8> Function(
-              ImgBuffer, ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, int,
+              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
 
   ImgBuffer warpAndGetOriginalImageSaveBufInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
   ) {
     return _warpAndGetOriginalImageSaveBufInBuf(
       buf,
+      bufSize,
     );
   }
 
-  late final _warpAndGetOriginalImageSaveBufInBufPtr =
-      _lookup<ffi.NativeFunction<ImgBuffer Function(ImgBuffer)>>(
-          'warpAndGetOriginalImageSaveBufInBuf');
+  late final _warpAndGetOriginalImageSaveBufInBufPtr = _lookup<
+      ffi.NativeFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>,
+              ffi.Uint64)>>('warpAndGetOriginalImageSaveBufInBuf');
   late final _warpAndGetOriginalImageSaveBufInBuf =
       _warpAndGetOriginalImageSaveBufInBufPtr
-          .asFunction<ImgBuffer Function(ImgBuffer)>();
+          .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   ffi.Pointer<ffi.Int8> warpAndGetBWImageSaveFileInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     ffi.Pointer<ffi.Int8> savePath,
     ffi.Pointer<ffi.Int8> ext,
   ) {
     return _warpAndGetBWImageSaveFileInBuf(
       buf,
+      bufSize,
       savePath,
       ext,
     );
@@ -216,26 +226,32 @@ class BugsScannerBindings {
 
   late final _warpAndGetBWImageSaveFileInBufPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Int8> Function(
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Uint64,
+              ffi.Pointer<ffi.Int8>,
               ffi.Pointer<ffi.Int8>)>>('warpAndGetBWImageSaveFileInBuf');
   late final _warpAndGetBWImageSaveFileInBuf =
       _warpAndGetBWImageSaveFileInBufPtr.asFunction<
-          ffi.Pointer<ffi.Int8> Function(
-              ImgBuffer, ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, int,
+              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
 
   ImgBuffer warpAndGetBWImageSaveBufInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
   ) {
     return _warpAndGetBWImageSaveBufInBuf(
       buf,
+      bufSize,
     );
   }
 
-  late final _warpAndGetBWImageSaveBufInBufPtr =
-      _lookup<ffi.NativeFunction<ImgBuffer Function(ImgBuffer)>>(
-          'warpAndGetBWImageSaveBufInBuf');
+  late final _warpAndGetBWImageSaveBufInBufPtr = _lookup<
+      ffi.NativeFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>,
+              ffi.Uint64)>>('warpAndGetBWImageSaveBufInBuf');
   late final _warpAndGetBWImageSaveBufInBuf = _warpAndGetBWImageSaveBufInBufPtr
-      .asFunction<ImgBuffer Function(ImgBuffer)>();
+      .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   ffi.Pointer<ffi.Int8> warpAndGetOriginalImageSaveFileCustomContour(
     ffi.Pointer<ffi.Int8> filePath,
@@ -322,13 +338,15 @@ class BugsScannerBindings {
           .asFunction<ImgBuffer Function(ffi.Pointer<ffi.Int8>, Contour)>();
 
   ffi.Pointer<ffi.Int8> warpAndGetOriginalImageSaveFileCustomContourInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     ffi.Pointer<ffi.Int8> savePath,
     Contour contour,
     ffi.Pointer<ffi.Int8> ext,
   ) {
     return _warpAndGetOriginalImageSaveFileCustomContourInBuf(
       buf,
+      bufSize,
       savePath,
       contour,
       ext,
@@ -337,39 +355,44 @@ class BugsScannerBindings {
 
   late final _warpAndGetOriginalImageSaveFileCustomContourInBufPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
-                  Contour, ffi.Pointer<ffi.Int8>)>>(
+              ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, ffi.Uint64,
+                  ffi.Pointer<ffi.Int8>, Contour, ffi.Pointer<ffi.Int8>)>>(
       'warpAndGetOriginalImageSaveFileCustomContourInBuf');
   late final _warpAndGetOriginalImageSaveFileCustomContourInBuf =
       _warpAndGetOriginalImageSaveFileCustomContourInBufPtr.asFunction<
-          ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
-              Contour, ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, int,
+              ffi.Pointer<ffi.Int8>, Contour, ffi.Pointer<ffi.Int8>)>();
 
   ImgBuffer warpAndGetOriginalImageBufCustonContourInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     Contour contour,
   ) {
     return _warpAndGetOriginalImageBufCustonContourInBuf(
       buf,
+      bufSize,
       contour,
     );
   }
 
-  late final _warpAndGetOriginalImageBufCustonContourInBufPtr =
-      _lookup<ffi.NativeFunction<ImgBuffer Function(ImgBuffer, Contour)>>(
-          'warpAndGetOriginalImageBufCustonContourInBuf');
+  late final _warpAndGetOriginalImageBufCustonContourInBufPtr = _lookup<
+      ffi.NativeFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>, ffi.Uint64,
+              Contour)>>('warpAndGetOriginalImageBufCustonContourInBuf');
   late final _warpAndGetOriginalImageBufCustonContourInBuf =
-      _warpAndGetOriginalImageBufCustonContourInBufPtr
-          .asFunction<ImgBuffer Function(ImgBuffer, Contour)>();
+      _warpAndGetOriginalImageBufCustonContourInBufPtr.asFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int, Contour)>();
 
   ffi.Pointer<ffi.Int8> warpAndGetBWImageSaveFileCustomContourInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     ffi.Pointer<ffi.Int8> savePath,
     Contour contour,
     ffi.Pointer<ffi.Int8> ext,
   ) {
     return _warpAndGetBWImageSaveFileCustomContourInBuf(
       buf,
+      bufSize,
       savePath,
       contour,
       ext,
@@ -378,30 +401,33 @@ class BugsScannerBindings {
 
   late final _warpAndGetBWImageSaveFileCustomContourInBufPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
-                  Contour, ffi.Pointer<ffi.Int8>)>>(
+              ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, ffi.Uint64,
+                  ffi.Pointer<ffi.Int8>, Contour, ffi.Pointer<ffi.Int8>)>>(
       'warpAndGetBWImageSaveFileCustomContourInBuf');
   late final _warpAndGetBWImageSaveFileCustomContourInBuf =
       _warpAndGetBWImageSaveFileCustomContourInBufPtr.asFunction<
-          ffi.Pointer<ffi.Int8> Function(ImgBuffer, ffi.Pointer<ffi.Int8>,
-              Contour, ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Int8> Function(ffi.Pointer<ffi.Uint8>, int,
+              ffi.Pointer<ffi.Int8>, Contour, ffi.Pointer<ffi.Int8>)>();
 
   ImgBuffer warpAndGetBWImageBufCustomContourInBuf(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
     Contour contour,
   ) {
     return _warpAndGetBWImageBufCustomContourInBuf(
       buf,
+      bufSize,
       contour,
     );
   }
 
-  late final _warpAndGetBWImageBufCustomContourInBufPtr =
-      _lookup<ffi.NativeFunction<ImgBuffer Function(ImgBuffer, Contour)>>(
-          'warpAndGetBWImageBufCustomContourInBuf');
+  late final _warpAndGetBWImageBufCustomContourInBufPtr = _lookup<
+      ffi.NativeFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>, ffi.Uint64,
+              Contour)>>('warpAndGetBWImageBufCustomContourInBuf');
   late final _warpAndGetBWImageBufCustomContourInBuf =
-      _warpAndGetBWImageBufCustomContourInBufPtr
-          .asFunction<ImgBuffer Function(ImgBuffer, Contour)>();
+      _warpAndGetBWImageBufCustomContourInBufPtr.asFunction<
+          ImgBuffer Function(ffi.Pointer<ffi.Uint8>, int, Contour)>();
 
   Contour findContourFromImagePath(
     ffi.Pointer<ffi.Int8> src,
@@ -418,18 +444,21 @@ class BugsScannerBindings {
       .asFunction<Contour Function(ffi.Pointer<ffi.Int8>)>();
 
   Contour findContourFromImageBuffer(
-    ImgBuffer buf,
+    ffi.Pointer<ffi.Uint8> buf,
+    int bufSize,
   ) {
     return _findContourFromImageBuffer(
       buf,
+      bufSize,
     );
   }
 
-  late final _findContourFromImageBufferPtr =
-      _lookup<ffi.NativeFunction<Contour Function(ImgBuffer)>>(
-          'findContourFromImageBuffer');
-  late final _findContourFromImageBuffer =
-      _findContourFromImageBufferPtr.asFunction<Contour Function(ImgBuffer)>();
+  late final _findContourFromImageBufferPtr = _lookup<
+      ffi.NativeFunction<
+          Contour Function(ffi.Pointer<ffi.Uint8>,
+              ffi.Uint64)>>('findContourFromImageBuffer');
+  late final _findContourFromImageBuffer = _findContourFromImageBufferPtr
+      .asFunction<Contour Function(ffi.Pointer<ffi.Uint8>, int)>();
 }
 
 class __fsid_t extends ffi.Struct {
@@ -440,16 +469,16 @@ class __fsid_t extends ffi.Struct {
 class ImgBuffer extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> buffer;
 
-  @ffi.Uint64()
+  @ffi.Int64()
   external int size;
 }
 
 class Coordinates extends ffi.Struct {
-  @ffi.Float()
-  external double x;
+  @ffi.Int64()
+  external int x;
 
-  @ffi.Float()
-  external double y;
+  @ffi.Int64()
+  external int y;
 }
 
 class Contour extends ffi.Struct {
