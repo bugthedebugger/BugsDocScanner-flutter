@@ -31,8 +31,9 @@ class CropperView extends StatelessWidget {
         automaticBW: automaticBW,
         logExceptions: logExceptions,
         throwExceptions: throwExceptions,
-        cropHandleSize: MediaQuery.of(context).size.width * 0.3,
-        strokeWidth: MediaQuery.of(context).size.width * 0.02,
+        cropHandleSize: MediaQuery.of(context).size.width * 1,
+        strokeWidth: MediaQuery.of(context).size.width * 0.04,
+        magnifyingGlassRadius: MediaQuery.of(context).size.width * 1,
       ),
       builder: (context, model, chid) {
         return Scaffold(

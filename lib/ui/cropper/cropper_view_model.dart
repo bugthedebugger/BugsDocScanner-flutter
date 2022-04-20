@@ -88,6 +88,7 @@ class CroppverViewModel extends BaseViewModel {
       _contour = await BugsScannerAdapter.getContourFromImageBuffer(
         _originalImage!,
       );
+      print('Bugs Scanner Contour: $_contour');
       if (!_contour!.isValid) {
         resetContour();
       }

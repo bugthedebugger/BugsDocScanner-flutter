@@ -99,7 +99,6 @@ class BugsScannerAdapter {
           imbuffer.lengthInBytes,
           contour,
         );
-        print("Size of buf: ${_buf.size}");
         final Uint8List finalBuffer = _buf.buffer.asTypedList(_buf.size);
         params.sendPort.send(finalBuffer);
       },
